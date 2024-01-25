@@ -10,7 +10,7 @@ function withHighlights(Component) {
         </Popular>
       )
     }
-    if (props.views >= 100) {
+    if (props.views < 100) {
       return (
         <New>
           <Component {...props} />
@@ -29,7 +29,7 @@ function New(props) {
       {props.children}
     </div>
   )
-};
+}
 
 function Popular(props) {
   return (
@@ -38,7 +38,7 @@ function Popular(props) {
       {props.children}
     </div>
   )
-};
+}
 
 function Article(props) {
   return (
@@ -47,19 +47,19 @@ function Article(props) {
       <p className="views">Прочтений: {props.views}</p>
     </div>
   )
-};
+}
 
 function Video(props) {
   return (
     <div className="item item-video">
-      <iframe src={props.url} frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      <iframe src={props.url} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
       <p className="views">Просмотров: {props.views}</p>
     </div>
   )
-};
+}
 
 function List(props) {
-  return props.list.map(item => {
+  return props.list.map((item, index:number) => {
     let result = null;
     switch (item.type) {
       case 'video':
@@ -69,9 +69,9 @@ function List(props) {
         result = Article;
     }
     const ElementWithHighlight = withHighlights(result);
-    return <ElementWithHighlight {...item} />;
+    return <ElementWithHighlight {...item} key={index} />;
   });
-};
+}
 
 export default function App() {
   const [list, setList] = useState([
